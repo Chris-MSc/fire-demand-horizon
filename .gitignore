@@ -223,3 +223,9 @@ data/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Data: held outside the repository, recorded in the manifest
+*.ods
+*.parquet
+data/
+incident_data/
