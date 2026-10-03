@@ -1,0 +1,85 @@
+# PE7046 configuration.
+
+paths:
+  raw_dir: "../../data/raw"
+  interim_dir: "../../data/interim"
+  processed_dir: "../../data/processed"
+  reports_dir: "reports"
+
+sources:
+  # Publisher: Ministry of Housing, Communities and Local Government.
+  # Licence: Open Government Licence v3.0.
+  # Identity is the URL and the SHA-256.
+  mhclg_daily_incidents:
+    - era: "2010-11_to_2016-17"
+      filename: "Daily_incident_dataset_201011_to_201617.ods"
+      url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_201011_to_201617.ods"
+    - era: "2017-18_to_2022-23"
+      filename: "Daily_incident_dataset_201718_to_202223.ods"
+      url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_201718_to_202223.ods"
+    - era: "2023-24_to_present"
+      filename: "Daily_incident_dataset_202324_to_present.ods"
+      url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_202324_to_present.ods"
+      sha256: "a034f01def8aeb6b1cca4ed34633861c298443486fdb576b438712121c1992ec"
+      # Basis: verified against the published file on 3 October 2026. 
+
+panel:
+  # Undecided. Selection criteria are stated in the proposal; the panel itself
+  # is not fixed and is Objective 1 work.
+  services: null
+  start_date: null
+  # Undecided. Depends on the November 2025 recording platform change: the
+  # Incident Recording System ran until November 2025, the Fire and Rescue
+  # Data Platform since. Whether the panel ends before the change is a
+  # finding of the regime check.
+  end_date: null
+
+incident_types:
+  # All eleven published types are modelled. The question concerns the four
+  # with identifiable weather mechanisms (secondary for dryness, chimney and
+  # dwelling for cold, apparatus false alarms as the no-mechanism case), but
+  # horizons are estimated for every type so those four are compared against
+  # the full set rather than against a subset chosen in advance.
+  modelled_types:
+    - "Chimney Fires"
+    - "Due to apparatus"
+    - "Dwellings"
+    - "Good intent"
+    - "Malicious"
+    - "Non-fire false alarms"
+    - "Non-fire incidents"
+    - "Other Buildings"
+    - "Other Outdoors"
+    - "Road Vehicles"
+    - "Secondary Fires"
+  # Written by the C1 taxonomy check. Until it exists, nothing maps.
+  mapping_file: null
+
+horizon:
+  # The evaluated lead times, in days. Weekly resolution is reported
+  # explicitly as a limitation.
+  min_days: 7
+  max_days: 84
+  step_days: 7
+  # Mean absolute scaled error threshold defining the horizon. Applied to the
+  # upper bound of the fold-level interval, with contiguity required.
+  mase_threshold: 1.0
+
+model:
+  # Fixed by the design. Dynamic harmonic regression: Fourier terms with
+  # ARMA errors and weather covariates as additional regressors.
+  seasonal_period: 7
+  # Undecided. Set by exploratory analysis in Objective 2.
+  fourier_terms: null
+  # restricted: weather observed to the forecast origin only.
+  # perfect_foresight: weather observed through to the target date.
+  information_condition: "restricted"
+
+benchmark:
+  primary: "weekly_seasonal_naive"
+  robustness: "annual_seasonal_naive"
+
+validation:
+  # Tolerance when reconciling annual counts against published aggregates.
+  # Basis: not yet set.
+  reconciliation_tolerance: null
