@@ -21,3 +21,5 @@ the pipeline reproduces the analysis panel from the original public sources.
 ## Licence
 
 Code is MIT licensed. The underlying data remains under the licences above.
+
+Data files are not committed. The pipeline reproduces the analysis panel from the original public sources.
