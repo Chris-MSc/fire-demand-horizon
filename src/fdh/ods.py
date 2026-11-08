@@ -1,11 +1,11 @@
 """Streaming reader for the published ODS files.
 
-Rows carrying table:number-rows-repeated are emitted once per repeat. In the
-2023-24 to present file, 1.75 million of 1.85 million data rows are stored
-that way.
+Rows carrying table:number-rows-repeated are emitted once per repeat. Most data
+rows in the published files are stored that way, so a reader that ignores the
+attribute undercounts while still producing a plausible series.
 
-content.xml is parsed incrementally rather than loaded whole. Uncompressed it
-is 363 MB in the smallest of the three era files.
+content.xml is parsed incrementally rather than loaded whole, because it runs
+to hundreds of megabytes uncompressed.
 """
 
 from __future__ import annotations
@@ -55,7 +55,7 @@ def _row_cells(row: etree._Element) -> list[str]:
 def sheet_names(path: Path) -> list[str]:
     names: list[str] = []
     with zipfile.ZipFile(path) as archive, archive.open("content.xml") as stream:
-        for event, element in etree.iterparse(stream, events=("start",)):
+        for _, element in etree.iterparse(stream, events=("start",)):
             if element.tag == f"{T}table":
                 names.append(element.get(f"{T}name", ""))
     return names

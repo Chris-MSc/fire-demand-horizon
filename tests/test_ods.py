@@ -1,9 +1,3 @@
-"""Tests for the streaming ODS reader.
-
-Fixtures are minimal ODS files written by the helpers below, covering row
-repetition, column repetition, padding rows and the config sheet.
-"""
-
 from __future__ import annotations
 
 import zipfile

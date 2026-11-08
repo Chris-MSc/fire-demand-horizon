@@ -26,16 +26,14 @@ from pathlib import Path
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-
-from fdh.config import load_config  # noqa: E402
-from fdh.contract import (  # noqa: E402
+from fdh.config import incident_sources, load_config
+from fdh.contract import (
     DATA_SHEET_PATTERN,
     EXPECTED_COLUMNS,
     KNOWN_DAY_OF_WEEK,
     KNOWN_INCIDENT_LABELS,
 )
-from fdh.ods import OdsStructureError, iter_rows, sheet_names  # noqa: E402
+from fdh.ods import OdsStructureError, iter_rows, sheet_names
 
 BATCH_ROWS = 200_000
 
@@ -129,41 +127,42 @@ def main() -> int:
     records = []
     novel: list[str] = []
 
-    for sources in config.sources.values():
-        for source in sources:
-            if args.only and source.era != args.only:
-                continue
-            path = raw_dir / source.filename
-            if not path.exists():
-                raise SystemExit(f"missing raw file: {path}")
+    # Incident files only. Other collections, such as the boundary layers, are
+    # not ODS and are handled by their own notebooks.
+    for source in incident_sources(config):
+        if args.only and source.era != args.only:
+            continue
+        path = raw_dir / source.filename
+        if not path.exists():
+            raise SystemExit(f"missing raw file: {path}")
 
-            print(f"\n{source.filename}")
-            present = sheet_names(path)
-            data_sheets = [name for name in present if DATA_SHEET_PATTERN.match(name)]
-            if not data_sheets:
-                raise OdsStructureError(
-                    f"{source.filename}: no sheet matching a six digit financial year. "
-                    f"Sheets present: {present}"
+        print(f"\n{source.filename}")
+        present = sheet_names(path)
+        data_sheets = [name for name in present if DATA_SHEET_PATTERN.match(name)]
+        if not data_sheets:
+            raise OdsStructureError(
+                f"{source.filename}: no sheet matching a six digit financial year. "
+                f"Sheets present: {present}"
+            )
+        print(f"  sheets: {present}")
+
+        for sheet in data_sheets:
+            out_path = interim_dir / source.era / f"{sheet}.parquet"
+            record = convert_sheet(path, sheet, out_path)
+            record["era"] = source.era
+            record["source_file"] = source.filename
+            records.append(record)
+            print(f"  {sheet}: {record['rows']:,} rows -> {out_path.name}")
+            if record["unknown_incident_labels"]:
+                novel.append(
+                    f"{source.era}/{sheet}: incident labels not in the "
+                    f"2023-24 contract: {record['unknown_incident_labels']}"
                 )
-            print(f"  sheets: {present}")
-
-            for sheet in data_sheets:
-                out_path = interim_dir / source.era / f"{sheet}.parquet"
-                record = convert_sheet(path, sheet, out_path)
-                record["era"] = source.era
-                record["source_file"] = source.filename
-                records.append(record)
-                print(f"  {sheet}: {record['rows']:,} rows -> {out_path.name}")
-                if record["unknown_incident_labels"]:
-                    novel.append(
-                        f"{source.era}/{sheet}: incident labels not in the "
-                        f"2023-24 contract: {record['unknown_incident_labels']}"
-                    )
-                if record["unknown_day_of_week"]:
-                    novel.append(
-                        f"{source.era}/{sheet}: day of week values not in the "
-                        f"contract: {record['unknown_day_of_week']}"
-                    )
+            if record["unknown_day_of_week"]:
+                novel.append(
+                    f"{source.era}/{sheet}: day of week values not in the "
+                    f"contract: {record['unknown_day_of_week']}"
+                )
 
     interim_dir.mkdir(parents=True, exist_ok=True)
     record_path = interim_dir / "conversion_record.json"

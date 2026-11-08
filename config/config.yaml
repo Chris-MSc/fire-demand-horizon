@@ -1,9 +1,9 @@
 # PE7046 configuration.
 
 paths:
-  raw_dir: "../../data/raw"
-  interim_dir: "../../data/interim"
-  processed_dir: "../../data/processed"
+  raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
   reports_dir: "reports"
 
 sources:
@@ -13,25 +13,68 @@ sources:
   mhclg_daily_incidents:
     - era: "2010-11_to_2016-17"
       filename: "Daily_incident_dataset_201011_to_201617.ods"
-      url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_201011_to_201617.ods"
+      url: "https://assets.publishing.service.gov.uk/media/6a5e75c64763c49e9be69410/Daily_incident_dataset_201011_to_201617.ods"
+      # Basis: URL checked against the GOV.UK publication page. Content length
+      # 18,240,097 bytes, matching the file on disk.
     - era: "2017-18_to_2022-23"
       filename: "Daily_incident_dataset_201718_to_202223.ods"
-      url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_201718_to_202223.ods"
+      url: "https://assets.publishing.service.gov.uk/media/6a5e75b230f5842e1f5a5eec/Daily_incident_dataset_201718_to_202223.ods"
+      # Basis: URL checked against the GOV.UK publication page. Content length
+      # 15,157,593 bytes, matching the file on disk.
     - era: "2023-24_to_present"
       filename: "Daily_incident_dataset_202324_to_present.ods"
       url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_202324_to_present.ods"
       sha256: "a034f01def8aeb6b1cca4ed34633861c298443486fdb576b438712121c1992ec"
-      # Basis: verified against the published file on 3 October 2026. 
+      # Basis: verified against the published file on 3 October 2026.
+  ons_fra_boundaries:
+    # Office for National Statistics, Open Geography Portal. Feature server
+    # layer metadata read 8 November 2026: geometry polygon, native spatial
+    # reference EPSG:27700, maxRecordCount 2000, properties FRA22CD, FRA22NM,
+    # BNG_E, BNG_N, LONG, LAT, 44 features.
+    #
+    # December 2022 is the latest England edition found. December 2023, 2024
+    # and 2025 England layers do not resolve under the same naming pattern.
+    # The only boundary event inside 2010 to 2025 is the April 2016 Dorset and
+    # Wiltshire merger, which the incident data already presents as merged
+    # throughout, so a fixed snapshot is a stated limitation rather than a gap.
+    - era: "fra_2022_en_bgc"
+      filename: "fra_2022_en_bgc.geojson"
+      url: "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Fire_and_Rescue_Authorities_December_2022_EN_BGC/FeatureServer/0"
+      # Generalised to 20 m and clipped to mean high water. Adequate against a
+      # 1 km grid and smaller to hold than the full resolution version.
+    - era: "fra_2022_en_bfc"
+      filename: "fra_2022_en_bfc.geojson"
+      url: "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Fire_and_Rescue_Authorities_December_2022_EN_BFC/FeatureServer/0"
+      # Full resolution, clipped to mean high water. Held for the sensitivity
+      # check on generalisation.
+  ons_fra_classification:
+    - era: "fra_2025_ruc21_ew"
+      filename: "fra_2025_ruc21_ew.json"
+      url: "https://services1.arcgis.com/ESMARspQHYMw9BZ9/ArcGIS/rest/services/250611_Fire_and_Rescue_Areas_EW/FeatureServer/0"
+      # Rural Urban Classification 2021 applied to fire and rescue areas.
+      # Attribute table, no geometry, England and Wales. Layer metadata read
+      # 8 November 2026: 47 rows keyed FRA25CD, carrying the fields listed in
+      # fdh.contract.CLASSIFICATION_FIELDS.
+      #
+      # FRA25 codes. Hampshire and Isle of Wight is E31000048 here and
+      # E31000017 in the incident data, the same mismatch the service
+      # crosswalk handles.
 
 panel:
   # Undecided. Selection criteria are stated in the proposal; the panel itself
-  # is not fixed and is Objective 1 work.
+  # is not fixed and is task 2.1 under Objective 2.
   services: null
+  # Undecided. The panel is selected on RUC21_settlement_class from the
+  # ons_fra_classification source. Which classes qualify is set in task 2.1.
+  # Observed distribution across England and Wales: Majority rural 3,
+  # Intermediate rural 11, Intermediate urban 13, Urban 20.
+  rural_urban_classes: null
   start_date: null
   # Undecided. Depends on the November 2025 recording platform change: the
   # Incident Recording System ran until November 2025, the Fire and Rescue
   # Data Platform since. Whether the panel ends before the change is a
-  # finding of the regime check.
+  # finding of the regime check, not an assumption. The weather release also
+  # ends on 31 December 2025, which bears on the same decision.
   end_date: null
 
 incident_types:
@@ -40,6 +83,11 @@ incident_types:
   # dwelling for cold, apparatus false alarms as the no-mechanism case), but
   # horizons are estimated for every type so those four are compared against
   # the full set rather than against a subset chosen in advance.
+  #
+  # The cold measure cannot be a frost-day count: airfrost, groundfrost and
+  # snowLying are published monthly only, so it derives from tasmin. Wind and
+  # humidity have no daily proxy at all, which bears on road traffic
+  # collisions inside Non-fire incidents.
   modelled_types:
     - "Chimney Fires"
     - "Due to apparatus"
@@ -54,6 +102,9 @@ incident_types:
     - "Secondary Fires"
   # Written by the C1 taxonomy check. Until it exists, nothing maps.
   mapping_file: null
+  # Written by notebook 01. One row per recorded territory, carrying the
+  # matched boundary code and the basis of the match.
+  crosswalk_file: "config/service_crosswalk.csv"
 
 horizon:
   # The evaluated lead times, in days. Weekly resolution is reported
@@ -81,5 +132,60 @@ benchmark:
 
 validation:
   # Tolerance when reconciling annual counts against published aggregates.
-  # Basis: not yet set.
+  # Basis: not yet set. Requires FIRE0102 to be opened first.
   reconciliation_tolerance: null
+
+weather:
+  # HadUK-Grid gridded climate observations, 1 km, Met Office via the Centre
+  # for Environmental Data Analysis. NetCDF files on the CEDA Archive,
+  # available to registered users. There is no query API: whole monthly grids
+  # are downloaded and subset locally.
+  dataset: "HadUK-Grid v1.3.2.ceda"
+  catalogue_uuid: "789b3065d74a4c948ab05d33556c86d0"
+  # Provenance strings read from the files themselves on 8 November 2026:
+  # source HadUK-Grid_v1.3.2.0, version v20260512. Dataset reference
+  # doi: 10.1002/gdj3.78 (Hollis et al.).
+  version_directory: "v20260512"
+  resolution: "1km"
+  frequency: "day"
+  # Four of the fifteen variables publish at daily resolution: rainfall, tas,
+  # tasmax, tasmin. The other eleven start at monthly and cannot enter a daily
+  # panel.
+  #
+  # tas is excluded: its cell_methods is time: mid_range, so the published
+  # mean is the midpoint of tasmax and tasmin by construction. Verified over
+  # 7,352,310 cell-days, maximum absolute difference against the derived
+  # midpoint 0.0. Excluding it takes the download from 55.7 GB to 41.7 GB.
+  variables:
+    - "rainfall"
+    - "tasmax"
+    - "tasmin"
+  # Coverage of the annual CEDA release reads 1836 to 2025 in the catalogue
+  # record. Anything after 31 December 2025 would come from the Met Office
+  # provisional product, which is a separate file with extra compression.
+  release_covers_to: "2025-12-31"
+  # First day of weather to list, check and download; the window ends at
+  # release_covers_to. Basis: record level incident data begin with financial
+  # year 2010-11, on 1 April 2010.
+  window_start: "2010-04-01"
+  # Archive root for the 1 km product. Directory listings and file downloads
+  # under it were verified on 8 November 2026: one month of each of the four
+  # daily variables downloaded and opened.
+  base_url: "https://dap.ceda.ac.uk/badc/ukmo-hadobs/data/insitu/MOHC/HadOBS/HadUK-Grid/v1.3.2.ceda/1km"
+  # Grid read from the files: 900 by 1450 cells on transverse_mercator,
+  # EPSG:27700, matching the boundary layer. 245,077 land cells of 1,305,000,
+  # identical across variables. Fill value 1e+20 marks sea and cells outside
+  # the United Kingdom, excluded from the aggregation rather than averaged in.
+  fill_value: 1.0e+20
+  # Undecided: how a weather day aligns with an incident day. Read from the
+  # April 2010 probe files on 8 November 2026: tasmax states its observing
+  # period as 0900 on day D to 0900 on day D+1, tasmin as 0900 on day D-1 to
+  # 0900 on day D, both in cell_methods, while their time_bnds and those of tas
+  # run 00:00 to 00:00. rainfall's time_bnds run 09:00 to 09:00 and its
+  # cell_methods ("time: sum") states no period. Under the restricted
+  # condition tasmax[D] is not complete until 09:00 on D+1.
+  observing_window: null
+  # Undecided. Largest share of cell-days with tasmin[D+1] above tasmax[D]
+  # accepted as interpolation noise rather than a fault. April 2010 probe:
+  # 1,273 of 7,107,233 cell-days, 0.018% (DATA_LOG.md).
+  ordering_tolerance: null

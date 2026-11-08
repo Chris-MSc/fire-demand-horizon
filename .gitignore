@@ -222,7 +222,7 @@ data/
 # Streamlit
 .streamlit/secrets.toml
 
-# Data: held outside the repository, recorded in the manifest
+# Data: held in data/ inside the repository, never committed, recorded in the manifest
 *.ods
 *.parquet
 data/

@@ -21,11 +21,9 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-
-from fdh.config import load_config  # noqa: E402
-from fdh.contract import CONFIG_SHEET_NAMES  # noqa: E402
-from fdh.ods import read_config_sheet  # noqa: E402
+from fdh.config import INCIDENT_COLLECTION, incident_sources, load_config
+from fdh.contract import CONFIG_SHEET_NAMES
+from fdh.ods import read_config_sheet
 
 CHUNK = 1024 * 1024
 
@@ -47,43 +45,44 @@ def main() -> int:
     entries = []
     failures = []
 
-    for collection, sources in config.sources.items():
-        for source in sources:
-            path = raw_dir / source.filename
-            if not path.exists():
-                failures.append(f"missing file: {path}")
-                continue
+    # Incident files only. The boundary layers are not ODS and have no config
+    # sheet; their provenance record comes from fdh.boundaries.save_layer.
+    for source in incident_sources(config):
+        path = raw_dir / source.filename
+        if not path.exists():
+            failures.append(f"missing file: {path}")
+            continue
 
-            digest = sha256(path)
-            if source.sha256 and digest != source.sha256:
-                failures.append(
-                    f"{source.filename}: expected sha256 {source.sha256}, found {digest}. "
-                    f"The file on disk is a different release from the one config.yaml records."
-                )
-                continue
-
-            try:
-                sheet_values = read_config_sheet(path, CONFIG_SHEET_NAMES)
-            except Exception as error:  # config sheet may be absent in older eras
-                failures.append(f"{source.filename}: {error}")
-                sheet_values = {}
-
-            entries.append(
-                {
-                    "collection": collection,
-                    "era": source.era,
-                    "filename": source.filename,
-                    "url": source.url,
-                    "sha256": digest,
-                    "bytes": path.stat().st_size,
-                    "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
-                    "file_config_sheet": sheet_values,
-                }
+        digest = sha256(path)
+        if source.sha256 and digest != source.sha256:
+            failures.append(
+                f"{source.filename}: expected sha256 {source.sha256}, found {digest}. "
+                f"The file on disk is a different release from the one config.yaml records."
             )
-            status = "verified" if source.sha256 else "recorded"
-            print(f"{status}: {source.filename}  {digest}")
-            for key, value in sheet_values.items():
-                print(f"    {key}: {value}")
+            continue
+
+        try:
+            sheet_values = read_config_sheet(path, CONFIG_SHEET_NAMES)
+        except Exception as error:  # config sheet may be absent in older eras
+            failures.append(f"{source.filename}: {error}")
+            sheet_values = {}
+
+        entries.append(
+            {
+                "collection": INCIDENT_COLLECTION,
+                "era": source.era,
+                "filename": source.filename,
+                "url": source.url,
+                "sha256": digest,
+                "bytes": path.stat().st_size,
+                "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "file_config_sheet": sheet_values,
+            }
+        )
+        status = "verified" if source.sha256 else "recorded"
+        print(f"{status}: {source.filename}  {digest}")
+        for key, value in sheet_values.items():
+            print(f"    {key}: {value}")
 
     if failures:
         for failure in failures:

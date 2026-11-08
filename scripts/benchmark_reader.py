@@ -3,9 +3,9 @@
 Reports the row count and elapsed time for each reader. The row counts agree
 only if pandas expands table:number-rows-repeated.
 
-pandas builds the whole document in memory. The streaming reader emits rows as they are parsed, 
-so it can handle a 363 MB content.xml without running out of memory. The streaming reader is therefore the only option for 
-the 2023-24 to present file, which is 1.8 million rows and 1.2 GB uncompressed.
+pandas builds the whole document in memory; the streaming reader emits rows as
+they are parsed. Resident memory is not measured here and needs watching
+externally.
 
 Usage:
     uv run python scripts/benchmark_reader.py --era 2023-24_to_present --sheet 202324
@@ -14,14 +14,10 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import sys
 import time
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-
-from fdh.config import load_config  # noqa: E402
-from fdh.ods import iter_rows  # noqa: E402
+from fdh.config import load_config
+from fdh.ods import iter_rows
 
 
 def main() -> int:

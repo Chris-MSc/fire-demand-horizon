@@ -1,7 +1,8 @@
-"""Configuration loading and validation.
+"""Configuration loading.
 
-Undecided values are null in config.yaml. `require` raises on them rather than
-returning a default.
+Open decisions are null in config.yaml. Reading one through `require` raises
+instead of returning a default, so a stage that depends on an undecided value
+stops rather than producing a plausible answer from an invented one.
 """
 
 from __future__ import annotations
@@ -13,9 +14,11 @@ from typing import Any, Literal
 import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from fdh.contract import SETTLEMENT_CLASS, SETTLEMENT_CLASSES
+
 
 class UndecidedError(RuntimeError):
-    """Raised when a required configuration value is null."""
+    """Raised when code needs a configuration value that has not been decided."""
 
 
 def repo_root() -> Path:
@@ -42,13 +45,32 @@ class Source(BaseModel):
 
 class Panel(BaseModel):
     services: list[str] | None = None
+    rural_urban_classes: list[str] | None = None
     start_date: date | None = None
     end_date: date | None = None
 
+    @field_validator("rural_urban_classes")
+    @classmethod
+    def check_classes(cls, value: list[str] | None) -> list[str] | None:
+        if value is None:
+            return value
+        unknown = [name for name in value if name not in SETTLEMENT_CLASSES]
+        if unknown:
+            raise ValueError(
+                f"panel.rural_urban_classes holds values that are not "
+                f"{SETTLEMENT_CLASS} classes.\n"
+                f"  expected any of: {sorted(SETTLEMENT_CLASSES)}\n"
+                f"  found:           {unknown}"
+            )
+        if len(set(value)) != len(value):
+            raise ValueError(f"panel.rural_urban_classes repeats a class: {value}")
+        return value
+
 
 class IncidentTypes(BaseModel):
-    targets: list[str]
+    modelled_types: list[str]
     mapping_file: Path | None = None
+    crosswalk_file: Path | None = None
 
 
 class Exclusion(BaseModel):
@@ -103,6 +125,21 @@ class Validation(BaseModel):
     reconciliation_tolerance: float | None = None
 
 
+class Weather(BaseModel):
+    dataset: str
+    catalogue_uuid: str | None = None
+    version_directory: str | None = None
+    resolution: str
+    frequency: str
+    variables: list[str] | None = None
+    window_start: date
+    release_covers_to: date
+    base_url: str | None = None
+    fill_value: float | None = None
+    observing_window: str | None = None
+    ordering_tolerance: float | None = Field(default=None, ge=0, le=1)
+
+
 class Config(BaseModel):
     paths: Paths
     sources: dict[str, list[Source]]
@@ -113,6 +150,7 @@ class Config(BaseModel):
     model: Model
     benchmark: Benchmark
     validation: Validation
+    weather: Weather
 
     @field_validator("sources")
     @classmethod
@@ -133,8 +171,21 @@ def load_config(path: Path | None = None) -> Config:
     return Config.model_validate(raw)
 
 
+INCIDENT_COLLECTION = "mhclg_daily_incidents"
+
+
+def incident_sources(config: Config) -> list[Source]:
+    """Return the incident file sources only, never the boundary or other layers."""
+    if INCIDENT_COLLECTION not in config.sources:
+        raise KeyError(
+            f"config.yaml sources has no '{INCIDENT_COLLECTION}' collection. "
+            f"Found: {sorted(config.sources)}"
+        )
+    return config.sources[INCIDENT_COLLECTION]
+
+
 def require(value: Any, name: str, note: str = "") -> Any:
-    """Return a configured value, raising UndecidedError if it is null or empty."""
+    """Return a configured value, or fail naming the field that is undecided."""
     if value is None or value == [] or value == {}:
         message = (
             f"configuration field '{name}' is still undecided (null in config.yaml). "

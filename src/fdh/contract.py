@@ -1,12 +1,10 @@
-"""Expected structure of the published MHCLG daily incident files.
+"""Expected structure of the published source files.
 
-Source: Ministry of Housing, Communities and Local Government, Fire statistics
-incident level datasets, Open Government Licence v3.0.
+MHCLG daily incident datasets and the Office for National Statistics fire and
+rescue authority layers. A file that departs from these values stops the run.
 
-Observed in the 2023-24 to present file, sha256
-a034f01def8aeb6b1cca4ed34633861c298443486fdb576b438712121c1992ec, on
-3 October 2026. The 2010-11 to 2016-17 and 2017-18 to 2022-23 files have not
-been examined, so these values may be specific to the recent era.
+This module imports only `re`, so configuration loading and the tests stay free
+of the HTTP and geospatial dependencies the other modules carry.
 """
 
 from __future__ import annotations
@@ -55,4 +53,27 @@ KNOWN_DAY_OF_WEEK: frozenset[str] = frozenset(
     {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
 )
 
-MONTH_CODE_RANGE = range(1, 13)
+# ONS fire and rescue authority layers. Property names carry the edition year,
+# so the year is matched rather than fixed: FRA22CD and FRA22NM in the
+# December 2022 boundaries, FRA25CD and FRA25NM in the 2025 classification.
+FRA_CODE_FIELD = re.compile(r"^FRA\d{2}CD$")
+FRA_NAME_FIELD = re.compile(r"^FRA\d{2}NM$")
+
+# Rural Urban Classification 2021 of fire and rescue areas. Field names are
+# carried verbatim from the layer metadata, trailing underscores included.
+CLASSIFICATION_KEY = "FRA25CD"
+CLASSIFICATION_NAME = "FRA25NM"
+SETTLEMENT_CLASS = "RUC21_settlement_class"
+RURAL_SHARE = "Proportion_of_population_in_rural_OAs____"
+CLASSIFICATION_FIELDS: tuple[str, ...] = (
+    "Rural_Urban_flag",
+    SETTLEMENT_CLASS,
+    "RUC21_relative_access",
+    RURAL_SHARE,
+    "Proportion_of_population_in_OAs_further_from_a_major_town_or_city____",
+)
+
+# The four published settlement classes.
+SETTLEMENT_CLASSES: frozenset[str] = frozenset(
+    {"Majority rural", "Intermediate rural", "Intermediate urban", "Urban"}
+)
