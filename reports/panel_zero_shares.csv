@@ -1,0 +1,474 @@
+e_code_territory,frs_territory,incident_type,days,zero_days,non_zero_days,zero_share
+E31000001,Avon,Chimney Fires,5693,4881,812,0.857369
+E31000001,Avon,Due to apparatus,5693,4,5689,0.000703
+E31000001,Avon,Dwellings,5693,1292,4401,0.226945
+E31000001,Avon,Good intent,5693,233,5460,0.040927
+E31000001,Avon,Malicious,5693,3512,2181,0.616898
+E31000001,Avon,Non-fire false alarms,5693,3029,2664,0.532057
+E31000001,Avon,Non-fire incidents,5693,7,5686,0.00123
+E31000001,Avon,Other Buildings,5693,2467,3226,0.433339
+E31000001,Avon,Other Outdoors,5693,4194,1499,0.736694
+E31000001,Avon,Road Vehicles,5693,1452,4241,0.25505
+E31000001,Avon,Secondary Fires,5693,494,5199,0.086773
+E31000002,Bedfordshire,Chimney Fires,5693,5201,492,0.913578
+E31000002,Bedfordshire,Due to apparatus,5693,110,5583,0.019322
+E31000002,Bedfordshire,Dwellings,5693,2070,3623,0.363604
+E31000002,Bedfordshire,Good intent,5693,993,4700,0.174425
+E31000002,Bedfordshire,Malicious,5693,4212,1481,0.739856
+E31000002,Bedfordshire,Non-fire false alarms,5693,4417,1276,0.775865
+E31000002,Bedfordshire,Non-fire incidents,5693,130,5563,0.022835
+E31000002,Bedfordshire,Other Buildings,5693,3394,2299,0.596171
+E31000002,Bedfordshire,Other Outdoors,5693,4371,1322,0.767785
+E31000002,Bedfordshire,Road Vehicles,5693,2637,3056,0.4632
+E31000002,Bedfordshire,Secondary Fires,5693,950,4743,0.166872
+E31000003,Berkshire,Chimney Fires,5693,4943,750,0.868259
+E31000003,Berkshire,Due to apparatus,5693,57,5636,0.010012
+E31000003,Berkshire,Dwellings,5693,1952,3741,0.342877
+E31000003,Berkshire,Good intent,5693,300,5393,0.052696
+E31000003,Berkshire,Malicious,5693,4331,1362,0.760759
+E31000003,Berkshire,Non-fire false alarms,5693,3962,1731,0.695942
+E31000003,Berkshire,Non-fire incidents,5693,88,5605,0.015458
+E31000003,Berkshire,Other Buildings,5693,3320,2373,0.583172
+E31000003,Berkshire,Other Outdoors,5693,5218,475,0.916564
+E31000003,Berkshire,Road Vehicles,5693,2694,2999,0.473213
+E31000003,Berkshire,Secondary Fires,5693,1118,4575,0.196382
+E31000004,Buckinghamshire,Chimney Fires,5693,4759,934,0.835939
+E31000004,Buckinghamshire,Due to apparatus,5693,50,5643,0.008783
+E31000004,Buckinghamshire,Dwellings,5693,2090,3603,0.367118
+E31000004,Buckinghamshire,Good intent,5693,843,4850,0.148077
+E31000004,Buckinghamshire,Malicious,5693,4294,1399,0.75426
+E31000004,Buckinghamshire,Non-fire false alarms,5693,4244,1449,0.745477
+E31000004,Buckinghamshire,Non-fire incidents,5693,59,5634,0.010364
+E31000004,Buckinghamshire,Other Buildings,5693,2971,2722,0.521869
+E31000004,Buckinghamshire,Other Outdoors,5693,4308,1385,0.756719
+E31000004,Buckinghamshire,Road Vehicles,5693,2534,3159,0.445108
+E31000004,Buckinghamshire,Secondary Fires,5693,842,4851,0.147901
+E31000005,Cambridgeshire,Chimney Fires,5693,4919,774,0.864044
+E31000005,Cambridgeshire,Due to apparatus,5693,19,5674,0.003337
+E31000005,Cambridgeshire,Dwellings,5693,2525,3168,0.443527
+E31000005,Cambridgeshire,Good intent,5693,225,5468,0.039522
+E31000005,Cambridgeshire,Malicious,5693,4585,1108,0.805375
+E31000005,Cambridgeshire,Non-fire false alarms,5693,5016,677,0.881082
+E31000005,Cambridgeshire,Non-fire incidents,5693,185,5508,0.032496
+E31000005,Cambridgeshire,Other Buildings,5693,3109,2584,0.546109
+E31000005,Cambridgeshire,Other Outdoors,5693,4592,1101,0.806605
+E31000005,Cambridgeshire,Road Vehicles,5693,2292,3401,0.4026
+E31000005,Cambridgeshire,Secondary Fires,5693,929,4764,0.163183
+E31000006,Cheshire,Chimney Fires,5693,4652,1041,0.817144
+E31000006,Cheshire,Due to apparatus,5693,29,5664,0.005094
+E31000006,Cheshire,Dwellings,5693,1872,3821,0.328825
+E31000006,Cheshire,Good intent,5693,339,5354,0.059547
+E31000006,Cheshire,Malicious,5693,4451,1242,0.781837
+E31000006,Cheshire,Non-fire false alarms,5693,4028,1665,0.707536
+E31000006,Cheshire,Non-fire incidents,5693,90,5603,0.015809
+E31000006,Cheshire,Other Buildings,5693,2997,2696,0.526436
+E31000006,Cheshire,Other Outdoors,5693,4687,1006,0.823292
+E31000006,Cheshire,Road Vehicles,5693,2430,3263,0.42684
+E31000006,Cheshire,Secondary Fires,5693,446,5247,0.078342
+E31000007,Cleveland,Chimney Fires,5693,5490,203,0.964342
+E31000007,Cleveland,Due to apparatus,5693,273,5420,0.047954
+E31000007,Cleveland,Dwellings,5693,3003,2690,0.52749
+E31000007,Cleveland,Good intent,5693,88,5605,0.015458
+E31000007,Cleveland,Malicious,5693,4139,1554,0.727033
+E31000007,Cleveland,Non-fire false alarms,5693,4715,978,0.82821
+E31000007,Cleveland,Non-fire incidents,5693,152,5541,0.026699
+E31000007,Cleveland,Other Buildings,5693,3697,1996,0.649394
+E31000007,Cleveland,Other Outdoors,5693,4905,788,0.861584
+E31000007,Cleveland,Road Vehicles,5693,2494,3199,0.438082
+E31000007,Cleveland,Secondary Fires,5693,77,5616,0.013525
+E31000008,Cornwall and Isles of Scilly,Chimney Fires,5693,4091,1602,0.718602
+E31000008,Cornwall and Isles of Scilly,Due to apparatus,5693,334,5359,0.058669
+E31000008,Cornwall and Isles of Scilly,Dwellings,5693,2729,2964,0.479361
+E31000008,Cornwall and Isles of Scilly,Good intent,5693,984,4709,0.172844
+E31000008,Cornwall and Isles of Scilly,Malicious,5693,5003,690,0.878799
+E31000008,Cornwall and Isles of Scilly,Non-fire false alarms,5693,4139,1554,0.727033
+E31000008,Cornwall and Isles of Scilly,Non-fire incidents,5693,63,5630,0.011066
+E31000008,Cornwall and Isles of Scilly,Other Buildings,5693,3689,2004,0.647989
+E31000008,Cornwall and Isles of Scilly,Other Outdoors,5693,4659,1034,0.818373
+E31000008,Cornwall and Isles of Scilly,Road Vehicles,5693,3191,2502,0.560513
+E31000008,Cornwall and Isles of Scilly,Secondary Fires,5693,2054,3639,0.360794
+E31000009,Cumbria,Chimney Fires,5693,4194,1499,0.736694
+E31000009,Cumbria,Due to apparatus,5693,296,5397,0.051994
+E31000009,Cumbria,Dwellings,5693,2839,2854,0.498683
+E31000009,Cumbria,Good intent,5693,1468,4225,0.257861
+E31000009,Cumbria,Malicious,5693,4989,704,0.876339
+E31000009,Cumbria,Non-fire false alarms,5693,4640,1053,0.815036
+E31000009,Cumbria,Non-fire incidents,5693,587,5106,0.103109
+E31000009,Cumbria,Other Buildings,5693,3776,1917,0.663271
+E31000009,Cumbria,Other Outdoors,5693,4804,889,0.843843
+E31000009,Cumbria,Road Vehicles,5693,3331,2362,0.585105
+E31000009,Cumbria,Secondary Fires,5693,1540,4153,0.270508
+E31000010,Derbyshire,Chimney Fires,5693,4502,1191,0.790796
+E31000010,Derbyshire,Due to apparatus,5693,76,5617,0.01335
+E31000010,Derbyshire,Dwellings,5693,1636,4057,0.28737
+E31000010,Derbyshire,Good intent,5693,631,5062,0.110838
+E31000010,Derbyshire,Malicious,5693,4507,1186,0.791674
+E31000010,Derbyshire,Non-fire false alarms,5693,4813,880,0.845424
+E31000010,Derbyshire,Non-fire incidents,5693,92,5601,0.01616
+E31000010,Derbyshire,Other Buildings,5693,2916,2777,0.512208
+E31000010,Derbyshire,Other Outdoors,5693,4289,1404,0.753381
+E31000010,Derbyshire,Road Vehicles,5693,2096,3597,0.368171
+E31000010,Derbyshire,Secondary Fires,5693,679,5014,0.119269
+E31000011,Devon and Somerset,Chimney Fires,5693,2854,2839,0.501317
+E31000011,Devon and Somerset,Due to apparatus,5693,0,5693,0.0
+E31000011,Devon and Somerset,Dwellings,5693,425,5268,0.074653
+E31000011,Devon and Somerset,Good intent,5693,152,5541,0.026699
+E31000011,Devon and Somerset,Malicious,5693,3963,1730,0.696118
+E31000011,Devon and Somerset,Non-fire false alarms,5693,3860,1833,0.678026
+E31000011,Devon and Somerset,Non-fire incidents,5693,0,5693,0.0
+E31000011,Devon and Somerset,Other Buildings,5693,1542,4151,0.270859
+E31000011,Devon and Somerset,Other Outdoors,5693,4026,1667,0.707184
+E31000011,Devon and Somerset,Road Vehicles,5693,959,4734,0.168452
+E31000011,Devon and Somerset,Secondary Fires,5693,445,5248,0.078166
+E31000013,Durham,Chimney Fires,5693,4817,876,0.846127
+E31000013,Durham,Due to apparatus,5693,326,5367,0.057263
+E31000013,Durham,Dwellings,5693,2592,3101,0.455296
+E31000013,Durham,Good intent,5693,386,5307,0.067803
+E31000013,Durham,Malicious,5693,4714,979,0.828034
+E31000013,Durham,Non-fire false alarms,5693,4802,891,0.843492
+E31000013,Durham,Non-fire incidents,5693,299,5394,0.052521
+E31000013,Durham,Other Buildings,5693,3231,2462,0.567539
+E31000013,Durham,Other Outdoors,5693,4553,1140,0.799754
+E31000013,Durham,Road Vehicles,5693,1959,3734,0.344107
+E31000013,Durham,Secondary Fires,5693,200,5493,0.035131
+E31000014,East Sussex,Chimney Fires,5693,4312,1381,0.757421
+E31000014,East Sussex,Due to apparatus,5693,6,5687,0.001054
+E31000014,East Sussex,Dwellings,5693,1361,4332,0.239066
+E31000014,East Sussex,Good intent,5693,291,5402,0.051115
+E31000014,East Sussex,Malicious,5693,4124,1569,0.724398
+E31000014,East Sussex,Non-fire false alarms,5693,4604,1089,0.808712
+E31000014,East Sussex,Non-fire incidents,5693,6,5687,0.001054
+E31000014,East Sussex,Other Buildings,5693,3042,2651,0.53434
+E31000014,East Sussex,Other Outdoors,5693,4370,1323,0.767609
+E31000014,East Sussex,Road Vehicles,5693,2934,2759,0.51537
+E31000014,East Sussex,Secondary Fires,5693,1134,4559,0.199192
+E31000015,Essex,Chimney Fires,5693,4673,1020,0.820833
+E31000015,Essex,Due to apparatus,5693,6,5687,0.001054
+E31000015,Essex,Dwellings,5693,565,5128,0.099245
+E31000015,Essex,Good intent,5693,7,5686,0.00123
+E31000015,Essex,Malicious,5693,3290,2403,0.577903
+E31000015,Essex,Non-fire false alarms,5693,1972,3721,0.34639
+E31000015,Essex,Non-fire incidents,5693,0,5693,0.0
+E31000015,Essex,Other Buildings,5693,1881,3812,0.330406
+E31000015,Essex,Other Outdoors,5693,3213,2480,0.564377
+E31000015,Essex,Road Vehicles,5693,920,4773,0.161602
+E31000015,Essex,Secondary Fires,5693,259,5434,0.045494
+E31000016,Gloucestershire,Chimney Fires,5693,4181,1512,0.734411
+E31000016,Gloucestershire,Due to apparatus,5693,361,5332,0.063411
+E31000016,Gloucestershire,Dwellings,5693,2470,3223,0.433866
+E31000016,Gloucestershire,Good intent,5693,828,4865,0.145442
+E31000016,Gloucestershire,Malicious,5693,5091,602,0.894256
+E31000016,Gloucestershire,Non-fire false alarms,5693,4570,1123,0.80274
+E31000016,Gloucestershire,Non-fire incidents,5693,31,5662,0.005445
+E31000016,Gloucestershire,Other Buildings,5693,3764,1929,0.661163
+E31000016,Gloucestershire,Other Outdoors,5693,4794,899,0.842087
+E31000016,Gloucestershire,Road Vehicles,5693,3041,2652,0.534165
+E31000016,Gloucestershire,Secondary Fires,5693,1797,3896,0.315651
+E31000017,Hampshire and Isle of Wight,Chimney Fires,5693,3909,1784,0.686633
+E31000017,Hampshire and Isle of Wight,Due to apparatus,5693,0,5693,0.0
+E31000017,Hampshire and Isle of Wight,Dwellings,5693,557,5136,0.097839
+E31000017,Hampshire and Isle of Wight,Good intent,5693,30,5663,0.00527
+E31000017,Hampshire and Isle of Wight,Malicious,5693,2880,2813,0.505884
+E31000017,Hampshire and Isle of Wight,Non-fire false alarms,5693,3273,2420,0.574917
+E31000017,Hampshire and Isle of Wight,Non-fire incidents,5693,0,5693,0.0
+E31000017,Hampshire and Isle of Wight,Other Buildings,5693,1830,3863,0.321447
+E31000017,Hampshire and Isle of Wight,Other Outdoors,5693,3093,2600,0.543299
+E31000017,Hampshire and Isle of Wight,Road Vehicles,5693,1144,4549,0.200949
+E31000017,Hampshire and Isle of Wight,Secondary Fires,5693,380,5313,0.066749
+E31000018,Hereford and Worcester,Chimney Fires,5693,4129,1564,0.725277
+E31000018,Hereford and Worcester,Due to apparatus,5693,17,5676,0.002986
+E31000018,Hereford and Worcester,Dwellings,5693,2018,3675,0.35447
+E31000018,Hereford and Worcester,Good intent,5693,865,4828,0.151941
+E31000018,Hereford and Worcester,Malicious,5693,4928,765,0.865624
+E31000018,Hereford and Worcester,Non-fire false alarms,5693,4590,1103,0.806253
+E31000018,Hereford and Worcester,Non-fire incidents,5693,68,5625,0.011944
+E31000018,Hereford and Worcester,Other Buildings,5693,3013,2680,0.529246
+E31000018,Hereford and Worcester,Other Outdoors,5693,4340,1353,0.76234
+E31000018,Hereford and Worcester,Road Vehicles,5693,2591,3102,0.45512
+E31000018,Hereford and Worcester,Secondary Fires,5693,1270,4423,0.223081
+E31000019,Hertfordshire,Chimney Fires,5693,4984,709,0.875461
+E31000019,Hertfordshire,Due to apparatus,5693,8,5685,0.001405
+E31000019,Hertfordshire,Dwellings,5693,1487,4206,0.261198
+E31000019,Hertfordshire,Good intent,5693,104,5589,0.018268
+E31000019,Hertfordshire,Malicious,5693,4586,1107,0.805551
+E31000019,Hertfordshire,Non-fire false alarms,5693,3515,2178,0.617425
+E31000019,Hertfordshire,Non-fire incidents,5693,17,5676,0.002986
+E31000019,Hertfordshire,Other Buildings,5693,3092,2601,0.543123
+E31000019,Hertfordshire,Other Outdoors,5693,3689,2004,0.647989
+E31000019,Hertfordshire,Road Vehicles,5693,2129,3564,0.373968
+E31000019,Hertfordshire,Secondary Fires,5693,749,4944,0.131565
+E31000020,Humberside,Chimney Fires,5693,4762,931,0.836466
+E31000020,Humberside,Due to apparatus,5693,24,5669,0.004216
+E31000020,Humberside,Dwellings,5693,1525,4168,0.267873
+E31000020,Humberside,Good intent,5693,406,5287,0.071316
+E31000020,Humberside,Malicious,5693,3631,2062,0.637801
+E31000020,Humberside,Non-fire false alarms,5693,4680,1013,0.822062
+E31000020,Humberside,Non-fire incidents,5693,19,5674,0.003337
+E31000020,Humberside,Other Buildings,5693,2388,3305,0.419462
+E31000020,Humberside,Other Outdoors,5693,4174,1519,0.733181
+E31000020,Humberside,Road Vehicles,5693,1855,3838,0.325839
+E31000020,Humberside,Secondary Fires,5693,200,5493,0.035131
+E31000022,Kent,Chimney Fires,5693,4013,1680,0.704901
+E31000022,Kent,Due to apparatus,5693,16,5677,0.00281
+E31000022,Kent,Dwellings,5693,1027,4666,0.180397
+E31000022,Kent,Good intent,5693,28,5665,0.004918
+E31000022,Kent,Malicious,5693,4341,1352,0.762515
+E31000022,Kent,Non-fire false alarms,5693,2737,2956,0.480766
+E31000022,Kent,Non-fire incidents,5693,5,5688,0.000878
+E31000022,Kent,Other Buildings,5693,1913,3780,0.336027
+E31000022,Kent,Other Outdoors,5693,3704,1989,0.650624
+E31000022,Kent,Road Vehicles,5693,761,4932,0.133673
+E31000022,Kent,Secondary Fires,5693,234,5459,0.041103
+E31000023,Lancashire,Chimney Fires,5693,4551,1142,0.799403
+E31000023,Lancashire,Due to apparatus,5693,0,5693,0.0
+E31000023,Lancashire,Dwellings,5693,436,5257,0.076585
+E31000023,Lancashire,Good intent,5693,23,5670,0.00404
+E31000023,Lancashire,Malicious,5693,2654,3039,0.466187
+E31000023,Lancashire,Non-fire false alarms,5693,2995,2698,0.526085
+E31000023,Lancashire,Non-fire incidents,5693,6,5687,0.001054
+E31000023,Lancashire,Other Buildings,5693,1493,4200,0.262252
+E31000023,Lancashire,Other Outdoors,5693,4370,1323,0.767609
+E31000023,Lancashire,Road Vehicles,5693,1438,4255,0.252591
+E31000023,Lancashire,Secondary Fires,5693,64,5629,0.011242
+E31000024,Leicestershire,Chimney Fires,5693,4700,993,0.825575
+E31000024,Leicestershire,Due to apparatus,5693,74,5619,0.012998
+E31000024,Leicestershire,Dwellings,5693,1766,3927,0.310206
+E31000024,Leicestershire,Good intent,5693,330,5363,0.057966
+E31000024,Leicestershire,Malicious,5693,4202,1491,0.738099
+E31000024,Leicestershire,Non-fire false alarms,5693,4240,1453,0.744774
+E31000024,Leicestershire,Non-fire incidents,5693,47,5646,0.008256
+E31000024,Leicestershire,Other Buildings,5693,2784,2909,0.489022
+E31000024,Leicestershire,Other Outdoors,5693,4412,1281,0.774987
+E31000024,Leicestershire,Road Vehicles,5693,1900,3793,0.333743
+E31000024,Leicestershire,Secondary Fires,5693,788,4905,0.138416
+E31000025,Lincolnshire,Chimney Fires,5693,4546,1147,0.798525
+E31000025,Lincolnshire,Due to apparatus,5693,161,5532,0.02828
+E31000025,Lincolnshire,Dwellings,5693,2089,3604,0.366942
+E31000025,Lincolnshire,Good intent,5693,873,4820,0.153346
+E31000025,Lincolnshire,Malicious,5693,4943,750,0.868259
+E31000025,Lincolnshire,Non-fire false alarms,5693,5303,390,0.931495
+E31000025,Lincolnshire,Non-fire incidents,5693,10,5683,0.001757
+E31000025,Lincolnshire,Other Buildings,5693,2822,2871,0.495696
+E31000025,Lincolnshire,Other Outdoors,5693,4358,1335,0.765501
+E31000025,Lincolnshire,Road Vehicles,5693,2494,3199,0.438082
+E31000025,Lincolnshire,Secondary Fires,5693,1168,4525,0.205164
+E31000026,Norfolk,Chimney Fires,5693,4116,1577,0.722993
+E31000026,Norfolk,Due to apparatus,5693,97,5596,0.017038
+E31000026,Norfolk,Dwellings,5693,1608,4085,0.282452
+E31000026,Norfolk,Good intent,5693,569,5124,0.099947
+E31000026,Norfolk,Malicious,5693,4770,923,0.837871
+E31000026,Norfolk,Non-fire false alarms,5693,4570,1123,0.80274
+E31000026,Norfolk,Non-fire incidents,5693,20,5673,0.003513
+E31000026,Norfolk,Other Buildings,5693,2603,3090,0.457228
+E31000026,Norfolk,Other Outdoors,5693,3644,2049,0.640084
+E31000026,Norfolk,Road Vehicles,5693,2491,3202,0.437555
+E31000026,Norfolk,Secondary Fires,5693,1183,4510,0.207799
+E31000027,North Yorkshire,Chimney Fires,5693,3953,1740,0.694361
+E31000027,North Yorkshire,Due to apparatus,5693,23,5670,0.00404
+E31000027,North Yorkshire,Dwellings,5693,2256,3437,0.396276
+E31000027,North Yorkshire,Good intent,5693,802,4891,0.140875
+E31000027,North Yorkshire,Malicious,5693,4409,1284,0.77446
+E31000027,North Yorkshire,Non-fire false alarms,5693,4309,1384,0.756894
+E31000027,North Yorkshire,Non-fire incidents,5693,95,5598,0.016687
+E31000027,North Yorkshire,Other Buildings,5693,2894,2799,0.508344
+E31000027,North Yorkshire,Other Outdoors,5693,4175,1518,0.733357
+E31000027,North Yorkshire,Road Vehicles,5693,2767,2926,0.486035
+E31000027,North Yorkshire,Secondary Fires,5693,1282,4411,0.225189
+E31000028,Northamptonshire,Chimney Fires,5693,4793,900,0.841911
+E31000028,Northamptonshire,Due to apparatus,5693,718,4975,0.12612
+E31000028,Northamptonshire,Dwellings,5693,2047,3646,0.359564
+E31000028,Northamptonshire,Good intent,5693,390,5303,0.068505
+E31000028,Northamptonshire,Malicious,5693,4717,976,0.828561
+E31000028,Northamptonshire,Non-fire false alarms,5693,4594,1099,0.806956
+E31000028,Northamptonshire,Non-fire incidents,5693,73,5620,0.012823
+E31000028,Northamptonshire,Other Buildings,5693,3252,2441,0.571228
+E31000028,Northamptonshire,Other Outdoors,5693,4288,1405,0.753206
+E31000028,Northamptonshire,Road Vehicles,5693,2340,3353,0.411031
+E31000028,Northamptonshire,Secondary Fires,5693,1053,4640,0.184964
+E31000029,Northumberland,Chimney Fires,5693,4774,919,0.838574
+E31000029,Northumberland,Due to apparatus,5693,690,5003,0.121201
+E31000029,Northumberland,Dwellings,5693,3708,1985,0.651326
+E31000029,Northumberland,Good intent,5693,2442,3251,0.428948
+E31000029,Northumberland,Malicious,5693,5175,518,0.909011
+E31000029,Northumberland,Non-fire false alarms,5693,5328,365,0.935886
+E31000029,Northumberland,Non-fire incidents,5693,1057,4636,0.185667
+E31000029,Northumberland,Other Buildings,5693,4164,1529,0.731425
+E31000029,Northumberland,Other Outdoors,5693,4937,756,0.867205
+E31000029,Northumberland,Road Vehicles,5693,3764,1929,0.661163
+E31000029,Northumberland,Secondary Fires,5693,1252,4441,0.219919
+E31000030,Nottinghamshire,Chimney Fires,5693,4976,717,0.874056
+E31000030,Nottinghamshire,Due to apparatus,5693,5,5688,0.000878
+E31000030,Nottinghamshire,Dwellings,5693,1044,4649,0.183383
+E31000030,Nottinghamshire,Good intent,5693,443,5250,0.077815
+E31000030,Nottinghamshire,Malicious,5693,3743,1950,0.657474
+E31000030,Nottinghamshire,Non-fire false alarms,5693,4930,763,0.865976
+E31000030,Nottinghamshire,Non-fire incidents,5693,20,5673,0.003513
+E31000030,Nottinghamshire,Other Buildings,5693,2205,3488,0.387318
+E31000030,Nottinghamshire,Other Outdoors,5693,4083,1610,0.717197
+E31000030,Nottinghamshire,Road Vehicles,5693,1800,3893,0.316178
+E31000030,Nottinghamshire,Secondary Fires,5693,300,5393,0.052696
+E31000031,Oxfordshire,Chimney Fires,5693,4335,1358,0.761461
+E31000031,Oxfordshire,Due to apparatus,5693,63,5630,0.011066
+E31000031,Oxfordshire,Dwellings,5693,2549,3144,0.447743
+E31000031,Oxfordshire,Good intent,5693,1062,4631,0.186545
+E31000031,Oxfordshire,Malicious,5693,4906,787,0.86176
+E31000031,Oxfordshire,Non-fire false alarms,5693,4722,971,0.82944
+E31000031,Oxfordshire,Non-fire incidents,5693,150,5543,0.026348
+E31000031,Oxfordshire,Other Buildings,5693,3467,2226,0.608994
+E31000031,Oxfordshire,Other Outdoors,5693,4543,1150,0.797998
+E31000031,Oxfordshire,Road Vehicles,5693,3089,2604,0.542596
+E31000031,Oxfordshire,Secondary Fires,5693,1687,4006,0.296329
+E31000032,Shropshire,Chimney Fires,5693,4473,1220,0.785702
+E31000032,Shropshire,Due to apparatus,5693,253,5440,0.044441
+E31000032,Shropshire,Dwellings,5693,2981,2712,0.523626
+E31000032,Shropshire,Good intent,5693,2298,3395,0.403654
+E31000032,Shropshire,Malicious,5693,5032,661,0.883892
+E31000032,Shropshire,Non-fire false alarms,5693,5173,520,0.90866
+E31000032,Shropshire,Non-fire incidents,5693,585,5108,0.102758
+E31000032,Shropshire,Other Buildings,5693,3673,2020,0.645178
+E31000032,Shropshire,Other Outdoors,5693,5034,659,0.884244
+E31000032,Shropshire,Road Vehicles,5693,3474,2219,0.610223
+E31000032,Shropshire,Secondary Fires,5693,1871,3822,0.328649
+E31000033,Staffordshire,Chimney Fires,5693,4581,1112,0.804672
+E31000033,Staffordshire,Due to apparatus,5693,102,5591,0.017917
+E31000033,Staffordshire,Dwellings,5693,1156,4537,0.203056
+E31000033,Staffordshire,Good intent,5693,234,5459,0.041103
+E31000033,Staffordshire,Malicious,5693,4402,1291,0.77323
+E31000033,Staffordshire,Non-fire false alarms,5693,4582,1111,0.804848
+E31000033,Staffordshire,Non-fire incidents,5693,34,5659,0.005972
+E31000033,Staffordshire,Other Buildings,5693,2116,3577,0.371685
+E31000033,Staffordshire,Other Outdoors,5693,4586,1107,0.805551
+E31000033,Staffordshire,Road Vehicles,5693,1913,3780,0.336027
+E31000033,Staffordshire,Secondary Fires,5693,309,5384,0.054277
+E31000034,Suffolk,Chimney Fires,5481,4263,1218,0.777778
+E31000034,Suffolk,Due to apparatus,5481,69,5412,0.012589
+E31000034,Suffolk,Dwellings,5481,2324,3157,0.42401
+E31000034,Suffolk,Good intent,5481,871,4610,0.158913
+E31000034,Suffolk,Malicious,5481,4644,837,0.847291
+E31000034,Suffolk,Non-fire false alarms,5481,4931,550,0.899653
+E31000034,Suffolk,Non-fire incidents,5481,438,5043,0.079912
+E31000034,Suffolk,Other Buildings,5481,3144,2337,0.573618
+E31000034,Suffolk,Other Outdoors,5481,4431,1050,0.808429
+E31000034,Suffolk,Road Vehicles,5481,2952,2529,0.538588
+E31000034,Suffolk,Secondary Fires,5481,1213,4268,0.22131
+E31000035,Surrey,Chimney Fires,5693,4564,1129,0.801686
+E31000035,Surrey,Due to apparatus,5693,1,5692,0.000176
+E31000035,Surrey,Dwellings,5693,1418,4275,0.249078
+E31000035,Surrey,Good intent,5693,204,5489,0.035833
+E31000035,Surrey,Malicious,5693,4433,1260,0.778676
+E31000035,Surrey,Non-fire false alarms,5693,4907,786,0.861936
+E31000035,Surrey,Non-fire incidents,5693,5,5688,0.000878
+E31000035,Surrey,Other Buildings,5693,2612,3081,0.458809
+E31000035,Surrey,Other Outdoors,5693,4607,1086,0.809239
+E31000035,Surrey,Road Vehicles,5693,2075,3618,0.364483
+E31000035,Surrey,Secondary Fires,5693,983,4710,0.172668
+E31000036,Warwickshire,Chimney Fires,5693,4977,716,0.874232
+E31000036,Warwickshire,Due to apparatus,5693,1138,4555,0.199895
+E31000036,Warwickshire,Dwellings,5693,3475,2218,0.610399
+E31000036,Warwickshire,Good intent,5693,895,4798,0.157211
+E31000036,Warwickshire,Malicious,5693,5291,402,0.929387
+E31000036,Warwickshire,Non-fire false alarms,5693,4306,1387,0.756367
+E31000036,Warwickshire,Non-fire incidents,5693,690,5003,0.121201
+E31000036,Warwickshire,Other Buildings,5693,4105,1588,0.721061
+E31000036,Warwickshire,Other Outdoors,5693,4619,1074,0.811347
+E31000036,Warwickshire,Road Vehicles,5693,2823,2870,0.495872
+E31000036,Warwickshire,Secondary Fires,5693,1602,4091,0.281398
+E31000037,West Sussex,Chimney Fires,5693,4406,1287,0.773933
+E31000037,West Sussex,Due to apparatus,5693,1,5692,0.000176
+E31000037,West Sussex,Dwellings,5693,1669,4024,0.293167
+E31000037,West Sussex,Good intent,5693,364,5329,0.063938
+E31000037,West Sussex,Malicious,5693,4199,1494,0.737572
+E31000037,West Sussex,Non-fire false alarms,5693,4343,1350,0.762867
+E31000037,West Sussex,Non-fire incidents,5693,14,5679,0.002459
+E31000037,West Sussex,Other Buildings,5693,3267,2426,0.573863
+E31000037,West Sussex,Other Outdoors,5693,4484,1209,0.787634
+E31000037,West Sussex,Road Vehicles,5693,2753,2940,0.483576
+E31000037,West Sussex,Secondary Fires,5693,1258,4435,0.220973
+E31000040,Greater Manchester,Chimney Fires,5693,5110,583,0.897594
+E31000040,Greater Manchester,Due to apparatus,5693,0,5693,0.0
+E31000040,Greater Manchester,Dwellings,5693,35,5658,0.006148
+E31000040,Greater Manchester,Good intent,5693,3,5690,0.000527
+E31000040,Greater Manchester,Malicious,5693,1083,4610,0.190234
+E31000040,Greater Manchester,Non-fire false alarms,5693,1923,3770,0.337783
+E31000040,Greater Manchester,Non-fire incidents,5693,0,5693,0.0
+E31000040,Greater Manchester,Other Buildings,5693,461,5232,0.080977
+E31000040,Greater Manchester,Other Outdoors,5693,3120,2573,0.548041
+E31000040,Greater Manchester,Road Vehicles,5693,254,5439,0.044616
+E31000040,Greater Manchester,Secondary Fires,5693,4,5689,0.000703
+E31000041,Merseyside,Chimney Fires,5693,5312,381,0.933076
+E31000041,Merseyside,Due to apparatus,5693,1,5692,0.000176
+E31000041,Merseyside,Dwellings,5693,312,5381,0.054804
+E31000041,Merseyside,Good intent,5693,105,5588,0.018444
+E31000041,Merseyside,Malicious,5693,3486,2207,0.612331
+E31000041,Merseyside,Non-fire false alarms,5693,4093,1600,0.718953
+E31000041,Merseyside,Non-fire incidents,5693,2,5691,0.000351
+E31000041,Merseyside,Other Buildings,5693,2091,3602,0.367293
+E31000041,Merseyside,Other Outdoors,5693,4070,1623,0.714913
+E31000041,Merseyside,Road Vehicles,5693,1041,4652,0.182856
+E31000041,Merseyside,Secondary Fires,5693,28,5665,0.004918
+E31000042,South Yorkshire,Chimney Fires,5693,5219,474,0.91674
+E31000042,South Yorkshire,Due to apparatus,5693,72,5621,0.012647
+E31000042,South Yorkshire,Dwellings,5693,870,4823,0.152819
+E31000042,South Yorkshire,Good intent,5693,50,5643,0.008783
+E31000042,South Yorkshire,Malicious,5693,4140,1553,0.727209
+E31000042,South Yorkshire,Non-fire false alarms,5693,2743,2950,0.48182
+E31000042,South Yorkshire,Non-fire incidents,5693,46,5647,0.00808
+E31000042,South Yorkshire,Other Buildings,5693,1872,3821,0.328825
+E31000042,South Yorkshire,Other Outdoors,5693,3847,1846,0.675742
+E31000042,South Yorkshire,Road Vehicles,5693,601,5092,0.105568
+E31000042,South Yorkshire,Secondary Fires,5693,31,5662,0.005445
+E31000043,Tyne and Wear,Chimney Fires,5693,5441,252,0.955735
+E31000043,Tyne and Wear,Due to apparatus,5693,0,5693,0.0
+E31000043,Tyne and Wear,Dwellings,5693,991,4702,0.174073
+E31000043,Tyne and Wear,Good intent,5693,99,5594,0.01739
+E31000043,Tyne and Wear,Malicious,5693,3149,2544,0.553135
+E31000043,Tyne and Wear,Non-fire false alarms,5693,5112,581,0.897945
+E31000043,Tyne and Wear,Non-fire incidents,5693,15,5678,0.002635
+E31000043,Tyne and Wear,Other Buildings,5693,2353,3340,0.413315
+E31000043,Tyne and Wear,Other Outdoors,5693,4342,1351,0.762691
+E31000043,Tyne and Wear,Road Vehicles,5693,1050,4643,0.184437
+E31000043,Tyne and Wear,Secondary Fires,5693,33,5660,0.005797
+E31000044,West Midlands,Chimney Fires,5693,5228,465,0.918321
+E31000044,West Midlands,Due to apparatus,5693,0,5693,0.0
+E31000044,West Midlands,Dwellings,5693,49,5644,0.008607
+E31000044,West Midlands,Good intent,5693,5,5688,0.000878
+E31000044,West Midlands,Malicious,5693,1406,4287,0.24697
+E31000044,West Midlands,Non-fire false alarms,5693,2841,2852,0.499034
+E31000044,West Midlands,Non-fire incidents,5693,0,5693,0.0
+E31000044,West Midlands,Other Buildings,5693,692,5001,0.121553
+E31000044,West Midlands,Other Outdoors,5693,3989,1704,0.700685
+E31000044,West Midlands,Road Vehicles,5693,276,5417,0.048481
+E31000044,West Midlands,Secondary Fires,5693,6,5687,0.001054
+E31000045,West Yorkshire,Chimney Fires,5693,4588,1105,0.805902
+E31000045,West Yorkshire,Due to apparatus,5693,0,5693,0.0
+E31000045,West Yorkshire,Dwellings,5693,253,5440,0.044441
+E31000045,West Yorkshire,Good intent,5693,18,5675,0.003162
+E31000045,West Yorkshire,Malicious,5693,2239,3454,0.39329
+E31000045,West Yorkshire,Non-fire false alarms,5693,1873,3820,0.329001
+E31000045,West Yorkshire,Non-fire incidents,5693,3,5690,0.000527
+E31000045,West Yorkshire,Other Buildings,5693,1077,4616,0.18918
+E31000045,West Yorkshire,Other Outdoors,5693,3464,2229,0.608467
+E31000045,West Yorkshire,Road Vehicles,5693,317,5376,0.055682
+E31000045,West Yorkshire,Secondary Fires,5693,8,5685,0.001405
+E31000046,Greater London,Chimney Fires,5693,5223,470,0.917442
+E31000046,Greater London,Due to apparatus,5693,3,5690,0.000527
+E31000046,Greater London,Dwellings,5693,3,5690,0.000527
+E31000046,Greater London,Good intent,5693,3,5690,0.000527
+E31000046,Greater London,Malicious,5693,335,5358,0.058844
+E31000046,Greater London,Non-fire false alarms,5693,73,5620,0.012823
+E31000046,Greater London,Non-fire incidents,5693,3,5690,0.000527
+E31000046,Greater London,Other Buildings,5693,25,5668,0.004391
+E31000046,Greater London,Other Outdoors,5693,1678,4015,0.294748
+E31000046,Greater London,Road Vehicles,5693,65,5628,0.011418
+E31000046,Greater London,Secondary Fires,5693,3,5690,0.000527
+E31000047,Dorset and Wiltshire,Chimney Fires,5693,3527,2166,0.619533
+E31000047,Dorset and Wiltshire,Due to apparatus,5693,0,5693,0.0
+E31000047,Dorset and Wiltshire,Dwellings,5693,749,4944,0.131565
+E31000047,Dorset and Wiltshire,Good intent,5693,72,5621,0.012647
+E31000047,Dorset and Wiltshire,Malicious,5693,3682,2011,0.646759
+E31000047,Dorset and Wiltshire,Non-fire false alarms,5693,3720,1973,0.653434
+E31000047,Dorset and Wiltshire,Non-fire incidents,5693,1,5692,0.000176
+E31000047,Dorset and Wiltshire,Other Buildings,5693,1886,3807,0.331284
+E31000047,Dorset and Wiltshire,Other Outdoors,5693,3606,2087,0.633409
+E31000047,Dorset and Wiltshire,Road Vehicles,5693,1703,3990,0.299139
+E31000047,Dorset and Wiltshire,Secondary Fires,5693,640,5053,0.112419

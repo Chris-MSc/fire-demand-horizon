@@ -14,13 +14,17 @@ sources:
     - era: "2010-11_to_2016-17"
       filename: "Daily_incident_dataset_201011_to_201617.ods"
       url: "https://assets.publishing.service.gov.uk/media/6a5e75c64763c49e9be69410/Daily_incident_dataset_201011_to_201617.ods"
+      sha256: "63f2ec6efd4f9ca57b22e222ea8798a2f191345adae26b46da2bbfe925b7bc1a"
       # Basis: URL checked against the GOV.UK publication page. Content length
-      # 18,240,097 bytes, matching the file on disk.
+      # 18,240,097 bytes, matching the file on disk. Hash of the file on disk
+      # as recorded in data/raw/manifest.json on 8 November 2026.
     - era: "2017-18_to_2022-23"
       filename: "Daily_incident_dataset_201718_to_202223.ods"
       url: "https://assets.publishing.service.gov.uk/media/6a5e75b230f5842e1f5a5eec/Daily_incident_dataset_201718_to_202223.ods"
+      sha256: "23fcd555cf83fada725d9b1f174a24a76709389be92921d5fa9d088ca798a924"
       # Basis: URL checked against the GOV.UK publication page. Content length
-      # 15,157,593 bytes, matching the file on disk.
+      # 15,157,593 bytes, matching the file on disk. Hash of the file on disk
+      # as recorded in data/raw/manifest.json on 8 November 2026.
     - era: "2023-24_to_present"
       filename: "Daily_incident_dataset_202324_to_present.ods"
       url: "https://assets.publishing.service.gov.uk/media/6a5e759930f5842e1f5a5eeb/Daily_incident_dataset_202324_to_present.ods"
@@ -60,6 +64,25 @@ sources:
       # E31000017 in the incident data, the same mismatch the service
       # crosswalk handles.
 
+boundaries:
+  # Which layer under sources.ons_fra_boundaries the cell mask is built from.
+  # The generalised layer is adequate against a 1 km grid; the full resolution
+  # layer is held for the sensitivity check on generalisation.
+  layer: "fra_2022_en_bgc"
+  # Boundary polygons folded into another territory to match how the incident
+  # data is published. Not derivable from either source.
+  merged:
+    - boundary_code: "E31000039"
+      boundary_name: "Isles of Scilly"
+      e_code_territory: "E31000008"
+      frs_territory: "Cornwall and Isles of Scilly"
+      source: >-
+        Fire statistics incident level datasets, dataset guidance: Isles of
+        Scilly is merged with Cornwall for data protection reasons given the
+        minimal number of incidents, 16 fires across 2010/11 to 2024/25. The
+        boundary layer carries Isles of Scilly as its own polygon, so the
+        merge is applied to the boundaries to match the incident data.
+
 panel:
   # Undecided. Selection criteria are stated in the proposal; the panel itself
   # is not fixed and is task 2.1 under Objective 2.
@@ -69,13 +92,27 @@ panel:
   # Observed distribution across England and Wales: Majority rural 3,
   # Intermediate rural 11, Intermediate urban 13, Urban 20.
   rural_urban_classes: null
-  start_date: null
-  # Undecided. Depends on the November 2025 recording platform change: the
-  # Incident Recording System ran until November 2025, the Fire and Rescue
-  # Data Platform since. Whether the panel ends before the change is a
-  # finding of the regime check, not an assumption. The weather release also
-  # ends on 31 December 2025, which bears on the same decision.
-  end_date: null
+  # Basis: record level incident data begin with financial year 2010-11;
+  # earlier records are not published at record level.
+  start_date: "2010-04-01"
+  # Three reasons, in order.
+  #
+  # 31 October is a seasonal boundary. The span gives sixteen complete warm
+  # seasons, April to October 2010 through 2025, and fifteen complete cold
+  # seasons, November to March 2010/11 through 2024/25. The two weather
+  # mechanisms under test sit in opposite halves of the year, so a partial
+  # season would bias one and not the other.
+  #
+  # The Incident Recording System ran until November 2025 and the Fire and
+  # Rescue Data Platform since. Ending on 31 October stops before the change
+  # whichever day in November it fell on, and the published guidance gives
+  # only the month.
+  #
+  # The weather release covers to 31 December 2025, so every target date has
+  # weather behind it.
+  #
+  # Cost is 151 days, 2.6% of the recorded span.
+  end_date: "2025-10-31"
 
 incident_types:
   # All eleven published types are modelled. The question concerns the four
@@ -134,6 +171,28 @@ validation:
   # Tolerance when reconciling annual counts against published aggregates.
   # Basis: not yet set. Requires FIRE0102 to be opened first.
   reconciliation_tolerance: null
+  # Undecided. A series is scored only where its training window holds at
+  # least this many days with at least one incident. Known before any model is
+  # fitted, so the exclusion is pre-specified rather than chosen after seeing
+  # results. Basis comes from the zero day distribution in
+  # reports/panel_zero_shares.csv, written by scripts/build_panel.py.
+  min_nonzero_days: null
+  # Windows where a service did not submit. Nothing in the data separates a
+  # day with no incidents from a day never submitted, so the distinction comes
+  # from the published guidance. The panel build writes these days as null
+  # rather than zero, and they are left out of the zero day shares. This list
+  # is the only way a day becomes null. The build also reports territory-days
+  # with no incidents of any type to reports/panel_quiet_days.csv, which
+  # changes nothing in the panel.
+  reporting_gaps:
+    - e_code_territory: "E31000034"
+      frs_territory: "Suffolk"
+      start: "2024-09-01"
+      end: "2025-03-31"
+      source: >-
+        Fire statistics incident level datasets, dataset guidance: Suffolk
+        Fire and Rescue Service was unable to submit all incidents for this
+        period for technical reasons, and the figures are to be revised.
 
 weather:
   # HadUK-Grid gridded climate observations, 1 km, Met Office via the Centre
@@ -165,9 +224,13 @@ weather:
   # provisional product, which is a separate file with extra compression.
   release_covers_to: "2025-12-31"
   # First day of weather to list, check and download; the window ends at
-  # release_covers_to. Basis: record level incident data begin with financial
-  # year 2010-11, on 1 April 2010.
-  window_start: "2010-04-01"
+  # release_covers_to. Accumulated weather covariates reach backwards from the
+  # first scored day, so a 90-day rainfall accumulation on the first day of
+  # the panel needs weather from three months earlier. Six months of lead-in
+  # before panel.start_date covers any candidate window up to 180 days. Cost
+  # is eighteen further files, roughly 1.3 GB against the 41.7 GB already
+  # sized.
+  window_start: "2009-10-01"
   # Archive root for the 1 km product. Directory listings and file downloads
   # under it were verified on 8 November 2026: one month of each of the four
   # daily variables downloaded and opened.
@@ -177,15 +240,24 @@ weather:
   # identical across variables. Fill value 1e+20 marks sea and cells outside
   # the United Kingdom, excluded from the aggregation rather than averaged in.
   fill_value: 1.0e+20
-  # Undecided: how a weather day aligns with an incident day. Read from the
-  # April 2010 probe files on 8 November 2026: tasmax states its observing
-  # period as 0900 on day D to 0900 on day D+1, tasmin as 0900 on day D-1 to
-  # 0900 on day D, both in cell_methods, while their time_bnds and those of tas
-  # run 00:00 to 00:00. rainfall's time_bnds run 09:00 to 09:00 and its
-  # cell_methods ("time: sum") states no period. Under the restricted
-  # condition tasmax[D] is not complete until 09:00 on D+1.
-  observing_window: null
-  # Undecided. Largest share of cell-days with tasmin[D+1] above tasmax[D]
-  # accepted as interpolation noise rather than a fault. April 2010 probe:
-  # 1,273 of 7,107,233 cell-days, 0.018% (DATA_LOG.md).
-  ordering_tolerance: null
+  # Settled by Hollis et al. (2019) Table 1. Every daily variable is observed
+  # over a 09:00 to 09:00 period. The cell_methods comment is correct and the
+  # 00:00 time_bnds on the temperature files are nominal calendar labels rather
+  # than a description of the observing window, so the files do not disagree
+  # with themselves.
+  observing_window: "0900_to_0900"
+  # Days between the published label and the day the observing window opens.
+  # Windows from Hollis et al. (2019) Table 1: tasmax for day D runs 09:00 on
+  # D to 09:00 on D+1; rainfall the same; tasmin for day D runs 09:00 on D-1
+  # to 09:00 on D. tasmin therefore sits one day earlier than tasmax relative
+  # to the published label and the two are not contemporaneous.
+  #
+  # Two consequences. A cold night prompts heating the following day, so
+  # tasmin on its published label is arguably the correct alignment for
+  # cold-driven demand. At 09:00 on day D, tasmin for day D is complete while
+  # tasmax for day D is not known until 09:00 on D+1, so the two arrive at
+  # different freshness under the restricted condition.
+  label_offset_days:
+    rainfall: 0
+    tasmax: 0
+    tasmin: -1

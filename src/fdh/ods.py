@@ -66,8 +66,6 @@ def iter_rows(path: Path, sheet: str | None = None) -> Iterator[tuple[str, list[
 
     Row repeats are expanded. Header rows are returned like any other row.
     """
-    if not path.exists():
-        raise FileNotFoundError(f"ODS file not found: {path}")
     current: str | None = None
     with zipfile.ZipFile(path) as archive, archive.open("content.xml") as stream:
         for event, element in etree.iterparse(stream, events=("start", "end")):

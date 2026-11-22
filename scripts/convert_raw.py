@@ -7,7 +7,10 @@ The column header of each sheet is asserted against fdh.contract and a
 mismatch stops the run. Incident type and day of week values outside the
 contract are counted, reported, and written through unchanged.
 
-Also writes conversion_record.json: row counts and value counts per sheet.
+Also writes conversion_record.json: row counts and value counts per sheet,
+with the SHA-256 of the source file each sheet was read from. A run limited to
+one era with --only replaces that era's sheets in the record and keeps the
+rest.
 
 Usage:
     uv run python scripts/convert_raw.py
@@ -34,6 +37,7 @@ from fdh.contract import (
     KNOWN_INCIDENT_LABELS,
 )
 from fdh.ods import OdsStructureError, iter_rows, sheet_names
+from fdh.provenance import sha256_file
 
 BATCH_ROWS = 200_000
 
@@ -124,8 +128,20 @@ def main() -> int:
     raw_dir = config.paths.resolved("raw_dir")
     interim_dir = config.paths.resolved("interim_dir")
 
+    record_path = interim_dir / "conversion_record.json"
+    started = datetime.now(UTC).isoformat(timespec="seconds")
     records = []
     novel: list[str] = []
+
+    # A run limited to one era keeps the other eras' sheets from the existing
+    # record, each with the time it was converted, so the record always
+    # describes every Parquet file on disk.
+    if args.only and record_path.exists():
+        earlier = json.loads(record_path.read_text(encoding="utf-8"))
+        for sheet in earlier["sheets"]:
+            if sheet["era"] != args.only:
+                sheet.setdefault("converted_at", earlier["converted_at"])
+                records.append(sheet)
 
     # Incident files only. Other collections, such as the boundary layers, are
     # not ODS and are handled by their own notebooks.
@@ -137,6 +153,7 @@ def main() -> int:
             raise SystemExit(f"missing raw file: {path}")
 
         print(f"\n{source.filename}")
+        digest = sha256_file(path)
         present = sheet_names(path)
         data_sheets = [name for name in present if DATA_SHEET_PATTERN.match(name)]
         if not data_sheets:
@@ -151,6 +168,8 @@ def main() -> int:
             record = convert_sheet(path, sheet, out_path)
             record["era"] = source.era
             record["source_file"] = source.filename
+            record["source_sha256"] = digest
+            record["converted_at"] = started
             records.append(record)
             print(f"  {sheet}: {record['rows']:,} rows -> {out_path.name}")
             if record["unknown_incident_labels"]:
@@ -165,11 +184,17 @@ def main() -> int:
                 )
 
     interim_dir.mkdir(parents=True, exist_ok=True)
-    record_path = interim_dir / "conversion_record.json"
+    order = [source.era for source in incident_sources(config)]
+    records.sort(
+        key=lambda item: (
+            order.index(item["era"]) if item["era"] in order else len(order),
+            item["sheet"],
+        )
+    )
     record_path.write_text(
         json.dumps(
             {
-                "converted_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "converted_at": started,
                 "sheets": records,
             },
             indent=2,

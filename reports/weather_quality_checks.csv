@@ -1,10 +1,10 @@
 check,verdict,detail
 daily variables,PASS,"4 of 15 publish daily: ['rainfall', 'tas', 'tasmax', 'tasmin']; every configured variable ['rainfall', 'tasmax', 'tasmin'] publishes daily"
 version directories,PASS,"weather.version_directory v20260512; found {'rainfall': ['v20260512/'], 'tas': ['v20260512/'], 'tasmax': ['v20260512/'], 'tasmin': ['v20260512/']}"
-file contiguity,PASS,"189 months expected per variable; gaps 0, overlaps 0, duplicate months 0, months per variable [189]"
-month coverage,PASS,189 months offered across 4 variables; every variable offers all of them
+file contiguity,PASS,"195 months expected per variable; gaps 0, overlaps 0, duplicate months 0, months per variable [195]"
+month coverage,PASS,195 months offered across 4 variables; every variable offers all of them
 observing window,CHECK,"variables declare different windows; bounds and text disagree for ['tasmax', 'tasmin']; text states no window for ['rainfall', 'tas']"
 grid alignment,PASS,"shape (1450, 900), 245,077 valid cells (18.8%); masks identical: True"
 metadata contract,PASS,"source HadUK-Grid_v1.3.2.0, version v20260512; values within expected range: True"
-temperature ordering,CHECK,"tasmin[D+1] > tasmax[D] in 1,273 of 7,107,233 cell-days (0.0179%); median excess 0.53 C, max 9.92 C; same-day comparison 1,985 of 7,352,310; weather.ordering_tolerance is undecided"
-tas is mid_range,PASS,"published tas equals (tasmax + tasmin) / 2 exactly: True; max absolute difference 0.00e+00 over 7,352,310 cell-days. tas carries no information beyond the pair and is dropped from the download."
+temperature ordering,CHECK,"same window (tasmin labelled D+1 and tasmax labelled D, both 09:00 on D to 09:00 on D+1): minimum above maximum in 2,175 of 7,352,310 cell-days (0.0296%); median excess 0.31 C, max 7.24 C; weather.ordering_tolerance is undecided"
+tas is mid_range,PASS,"published tas equals (tasmax + tasmin) / 2 exactly: True; max absolute difference 0.00e+00 over 7,597,387 cell-days. tas carries no information beyond the pair and is dropped from the download."

@@ -142,8 +142,6 @@ def save_layer(collection: dict, path: Path) -> dict:
 
 def save_table(rows: list[dict], path: Path) -> dict:
     """Write attribute rows as JSON and return their provenance record."""
-    if not rows:
-        raise BoundaryError(f"{path.name}: no rows to save")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(rows), encoding="utf-8")
     return {

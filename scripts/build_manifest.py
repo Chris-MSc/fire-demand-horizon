@@ -15,25 +15,14 @@ Usage:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from datetime import UTC, datetime
-from pathlib import Path
 
 from fdh.config import INCIDENT_COLLECTION, incident_sources, load_config
 from fdh.contract import CONFIG_SHEET_NAMES
 from fdh.ods import read_config_sheet
-
-CHUNK = 1024 * 1024
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        while chunk := handle.read(CHUNK):
-            digest.update(chunk)
-    return digest.hexdigest()
+from fdh.provenance import sha256_file
 
 
 def main() -> int:
@@ -53,7 +42,7 @@ def main() -> int:
             failures.append(f"missing file: {path}")
             continue
 
-        digest = sha256(path)
+        digest = sha256_file(path)
         if source.sha256 and digest != source.sha256:
             failures.append(
                 f"{source.filename}: expected sha256 {source.sha256}, found {digest}. "
@@ -61,12 +50,7 @@ def main() -> int:
             )
             continue
 
-        try:
-            sheet_values = read_config_sheet(path, CONFIG_SHEET_NAMES)
-        except Exception as error:  # config sheet may be absent in older eras
-            failures.append(f"{source.filename}: {error}")
-            sheet_values = {}
-
+        sheet_values = read_config_sheet(path, CONFIG_SHEET_NAMES)
         entries.append(
             {
                 "collection": INCIDENT_COLLECTION,

@@ -12,6 +12,7 @@ dependencies = [
     "pyyaml>=6.0",
     "requests>=2.34.2",
     "netcdf4>=1.7.5.1.post1",
+    "geopandas>=1.2.0",
 ]
 
 [project.optional-dependencies]
@@ -22,6 +23,8 @@ dev = [
     "ipykernel>=6.29",
     # Only scripts/benchmark_reader.py, for the pandas comparison.
     "odfpy>=1.4.1",
+    # Plots in the inspection notebooks.
+    "matplotlib>=3.11.2",
 ]
 
 [build-system]

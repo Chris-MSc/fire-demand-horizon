@@ -73,20 +73,6 @@ class IncidentTypes(BaseModel):
     crosswalk_file: Path | None = None
 
 
-class Exclusion(BaseModel):
-    service: str
-    start: date
-    end: date
-    status: Literal["proposed", "confirmed"]
-    source: str
-
-    @model_validator(mode="after")
-    def check_order(self) -> Exclusion:
-        if self.end < self.start:
-            raise ValueError(f"exclusion for {self.service} ends before it starts")
-        return self
-
-
 class Horizon(BaseModel):
     min_days: int = Field(gt=0)
     max_days: int = Field(gt=0)
@@ -121,8 +107,33 @@ class Benchmark(BaseModel):
     robustness: str | None = None
 
 
+class ReportingGap(BaseModel):
+    """A window where a service did not submit, so absent days are not zeros.
+
+    Nothing in the data separates a day with no incidents from a day that was
+    never submitted. The distinction comes from the published guidance, so it
+    is declared here and the panel build writes those days as null.
+    """
+
+    e_code_territory: str
+    frs_territory: str
+    start: date
+    end: date
+    source: str
+
+    @model_validator(mode="after")
+    def check_order(self) -> ReportingGap:
+        if self.end < self.start:
+            raise ValueError(
+                f"reporting gap for {self.frs_territory} ends before it starts"
+            )
+        return self
+
+
 class Validation(BaseModel):
     reconciliation_tolerance: float | None = None
+    min_nonzero_days: int | None = Field(default=None, gt=0)
+    reporting_gaps: list[ReportingGap] = []
 
 
 class Weather(BaseModel):
@@ -137,15 +148,55 @@ class Weather(BaseModel):
     base_url: str | None = None
     fill_value: float | None = None
     observing_window: str | None = None
-    ordering_tolerance: float | None = Field(default=None, ge=0, le=1)
+    label_offset_days: dict[str, int] | None = None
+
+    @model_validator(mode="after")
+    def check_offsets(self) -> Weather:
+        if self.label_offset_days is None or self.variables is None:
+            return self
+        missing = [
+            name for name in self.variables if name not in self.label_offset_days
+        ]
+        if missing:
+            raise ValueError(
+                "weather.label_offset_days does not cover every configured "
+                "variable.\n"
+                f"  expected an offset for each of: {self.variables}\n"
+                f"  found offsets for:              {sorted(self.label_offset_days)}\n"
+                f"  missing:                        {missing}"
+            )
+        return self
+
+
+BOUNDARY_COLLECTION = "ons_fra_boundaries"
+
+
+class BoundaryMerge(BaseModel):
+    """A boundary polygon folded into a recorded territory.
+
+    The boundary layer carries the polygon separately while the incident data
+    publishes it inside another territory. Neither source states the merge in
+    a form that can be joined on, so it is declared here with its source.
+    """
+
+    boundary_code: str
+    boundary_name: str
+    e_code_territory: str
+    frs_territory: str
+    source: str
+
+
+class Boundaries(BaseModel):
+    layer: str
+    merged: list[BoundaryMerge] = []
 
 
 class Config(BaseModel):
     paths: Paths
     sources: dict[str, list[Source]]
+    boundaries: Boundaries
     panel: Panel
     incident_types: IncidentTypes
-    exclusions: list[Exclusion] = []
     horizon: Horizon
     model: Model
     benchmark: Benchmark
@@ -161,11 +212,21 @@ class Config(BaseModel):
                 raise ValueError(f"duplicate filename in sources.{key}")
         return value
 
+    @model_validator(mode="after")
+    def check_boundary_layer(self) -> Config:
+        available = [entry.era for entry in self.sources.get(BOUNDARY_COLLECTION, [])]
+        if self.boundaries.layer not in available:
+            raise ValueError(
+                f"boundaries.layer does not name a layer under "
+                f"sources.{BOUNDARY_COLLECTION}.\n"
+                f"  expected one of: {available}\n"
+                f"  found:           {self.boundaries.layer}"
+            )
+        return self
+
 
 def load_config(path: Path | None = None) -> Config:
     path = path or repo_root() / "config" / "config.yaml"
-    if not path.exists():
-        raise FileNotFoundError(f"configuration not found at {path}")
     with path.open("r", encoding="utf-8") as handle:
         raw: dict[str, Any] = yaml.safe_load(handle)
     return Config.model_validate(raw)
@@ -176,12 +237,20 @@ INCIDENT_COLLECTION = "mhclg_daily_incidents"
 
 def incident_sources(config: Config) -> list[Source]:
     """Return the incident file sources only, never the boundary or other layers."""
-    if INCIDENT_COLLECTION not in config.sources:
-        raise KeyError(
-            f"config.yaml sources has no '{INCIDENT_COLLECTION}' collection. "
-            f"Found: {sorted(config.sources)}"
-        )
     return config.sources[INCIDENT_COLLECTION]
+
+
+def boundary_layer(config: Config) -> Source:
+    """Return the boundary source that boundaries.layer names.
+
+    Loading the configuration has already checked that the name matches a
+    layer under sources.ons_fra_boundaries.
+    """
+    return next(
+        entry
+        for entry in config.sources[BOUNDARY_COLLECTION]
+        if entry.era == config.boundaries.layer
+    )
 
 
 def require(value: Any, name: str, note: str = "") -> Any:
